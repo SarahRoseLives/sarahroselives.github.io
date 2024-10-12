@@ -1,0 +1,145 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', Helvetica, sans-serif;
+    background-color: #f4f4f9; /* Light background */
+    color: #333; /* Dark gray text */
+    margin: 20px;
+}
+h1 {
+    text-align: center;
+    color: #333; /* Darker gray for the title */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Navigation bar styles */
+nav {
+    background-color: #ffffff; /* White background */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd; /* Light border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+nav a {
+    color: #007BFF; /* Professional blue for links */
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+nav a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+/* Main layout: sidebar + content */
+#main-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Sidebar styles */
+#sidebar {
+    width: 250px;
+    background-color: #ffffff; /* White background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    margin-right: 20px;
+    border: 1px solid #ddd; /* Light gray border */
+}
+#sidebar h3 {
+    color: #333; /* Darker gray */
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+#sidebar a {
+    color: #007BFF;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    font-size: 1rem;
+}
+#sidebar a:hover {
+    color: #0056b3;
+}
+
+/* Posts container */
+#posts-container {
+    flex-grow: 1;
+}
+
+.post {
+    background-color: #ffffff; /* White post background */
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+.post h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333; /* Dark gray for the post title */
+}
+pre {
+    background-color: #f4f4f9;
+    color: #333; /* Dark gray text for code */
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    border: 1px solid #ddd; /* Light border around code block */
+}
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Outline style for about content */
+.outline {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft shadow */
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination button {
+    background-color: #007BFF; /* Blue buttons */
+    border: none;
+    color: white; /* White text */
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Arial', Helvetica, sans-serif;
+}
+.pagination button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+.pagination button:disabled {
+    background-color: #ddd; /* Disabled buttons have a light gray background */
+    cursor: not-allowed;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #666; /* Light gray text for footer */
+    font-size: 0.9rem;
+    padding: 20px 0;
+    border-top: 2px solid #ddd; /* Subtle top border */
+}

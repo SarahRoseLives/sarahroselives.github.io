@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SarahRose's Markdown Blog</title>
+    <title>About - Markdown Blog</title>
     <link rel="stylesheet" href="assets/styles/purple.css">
     <!-- Include highlight.js for syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/monokai.min.css">
@@ -15,15 +15,27 @@
     <!-- Navigation Bar -->
     <div id="navigation-container"></div> <!-- Navigation container -->
 
-    <!-- Main layout: sidebar + posts -->
+    <!-- Main layout: sidebar + about content -->
     <div id="main-content">
         <!-- Sidebar -->
         <div id="sidebar-container"></div>
 
-        <!-- Posts Container -->
-        <div id="posts-container">
-            <div id="posts"></div>
-            <div class="pagination" id="pagination"></div>
+        <!-- About Content Container -->
+        <div id="posts-container"> <!-- Use the same container structure as the index page -->
+            <div id="about-content" class="outline"> <!-- Added class "outline" -->
+                <h2>Welcome to my Markdown Blog</h2>
+                <br><br>
+                <h3>So Why Markdown?</h3>
+                <p>
+                    Well, I didn't really have the budget for another web server or domain, and I found existing flat file blog platforms like Jekyll to be overly complicated.
+                </p>
+                <p>
+                    The idea was to write posts as Markdown files in my IDE, where I can easily preview them, and push the content to GitHub for free hosting. A custom domain can always be added later.
+                </p>
+                <br><br>
+                <h3>Who am I?</h3>
+                <p>My name is Sarah Rose, and I'm still updating this.</p>
+            </div>
         </div>
     </div>
 
@@ -33,7 +45,6 @@
     <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     <!-- Include highlight.js for syntax highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
-    <script src="assets/js/posts.js"></script>
     <script>
         // Load Header
         const loadHeader = async () => {
