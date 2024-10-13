@@ -62,34 +62,40 @@
         };
 
         // Function to load a single post
-        const loadPost = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const postName = urlParams.get('postname'); // Get the post name from the query string
-            const postsPath = 'assets/posts/'; // Path to the posts
-            const converter = new showdown.Converter({ ghCodeBlocks: true });
+const loadPost = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postName = urlParams.get('postname'); // Get the post name from the query string
+    const postsPath = 'assets/posts/'; // Path to the posts
+    const imagesPath = 'assets/posts/images/'; // The path to the images
+    const converter = new showdown.Converter({ ghCodeBlocks: true });
 
-            if (postName) {
-                try {
-                    const response = await fetch(`${postsPath}${postName}`);
-                    if (!response.ok) throw new Error(`Failed to fetch post: ${response.statusText}`);
+    if (postName) {
+        try {
+            const response = await fetch(`${postsPath}${postName}`);
+            if (!response.ok) throw new Error(`Failed to fetch post: ${response.statusText}`);
 
-                    const markdownContent = await response.text();
-                    const htmlContent = converter.makeHtml(markdownContent);
-                    document.getElementById('post').innerHTML = htmlContent;
+            const markdownContent = await response.text();
+            let htmlContent = converter.makeHtml(markdownContent);
 
-                    // Apply syntax highlighting to code blocks
-                    document.querySelectorAll('pre code').forEach((block) => {
-                        hljs.highlightBlock(block);
-                    });
-                } catch (error) {
-                    console.error('Error loading post:', error);
-                    document.getElementById('post').innerHTML = '<p>Sorry, the post could not be loaded.</p>';
-                }
-            } else {
-                console.warn('No post specified in URL.'); // Debugging line
-                document.getElementById('post').innerHTML = '<p>No post specified.</p>';
-            }
-        };
+            // Update image paths to be relative to the web server's directory structure
+            htmlContent = htmlContent.replace(/src="images\//g, `src="${imagesPath}`); // Adjust image paths
+
+            document.getElementById('post').innerHTML = htmlContent;
+
+            // Apply syntax highlighting to code blocks
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
+        } catch (error) {
+            console.error('Error loading post:', error);
+            document.getElementById('post').innerHTML = '<p>Sorry, the post could not be loaded.</p>';
+        }
+    } else {
+        console.warn('No post specified in URL.'); // Debugging line
+        document.getElementById('post').innerHTML = '<p>No post specified.</p>';
+    }
+};
+
 
         // Load Header, Navigation, Sidebar, Footer, and Post
         document.addEventListener('DOMContentLoaded', () => {
