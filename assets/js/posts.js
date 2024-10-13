@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let allPosts = [];
         let currentPage = 1;
         const postsPath = 'assets/posts/'; // The common path to the posts
+        const imagesPath = 'assets/posts/images/'; // The path to the images
 
         // Enable GitHub-style code blocks
         const converter = new showdown.Converter({ ghCodeBlocks: true });
@@ -25,8 +26,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                                 return null;
                             }
                             return response.text().then(content => {
-                                const title = file
-                                const htmlContent = converter.makeHtml(content);  // Convert markdown to HTML
+                                const title = file;
+                                let htmlContent = converter.makeHtml(content);  // Convert markdown to HTML
+
+                                // Update image paths to be relative to the web server's directory structure
+                                htmlContent = htmlContent.replace(/src="images\//g, `src="${imagesPath}`);
+
                                 return { title, content: htmlContent };
                             });
                         });
