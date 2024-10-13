@@ -1,0 +1,140 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000; /* Black background */
+    color: #800080; /* Purple text */
+    margin: 20px;
+}
+h1 {
+    text-align: center;
+    color: #800080; /* Purple for the title */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Navigation bar styles */
+nav {
+    background-color: #111; /* Dark gray background */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+nav a {
+    color: #800080; /* Purple links */
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+nav a:hover {
+    color: #660066; /* Darker purple on hover */
+}
+
+/* Main layout: sidebar + content */
+#main-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Sidebar styles */
+#sidebar {
+    width: 250px;
+    background-color: #111; /* Dark grey background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(128, 0, 128, 0.3); /* Purple glow */
+    margin-right: 20px;
+    border: 1px solid #800080; /* Purple border */
+}
+#sidebar h3 {
+    color: #800080; /* Purple for sidebar title */
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+#sidebar a {
+    color: #800080; /* Purple links in sidebar */
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+#sidebar a:hover {
+    color: #660066; /* Darker purple on hover */
+}
+
+/* Posts container */
+#posts-container {
+    flex-grow: 1;
+}
+
+.post {
+    background-color: #111; /* Dark grey for post background */
+    border: 1px solid #800080; /* Purple border */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(128, 0, 128, 0.3); /* Purple glow */
+}
+.post h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #800080; /* Purple for post title */
+}
+pre {
+    background-color: #000;
+    color: #800080; /* Purple text for code */
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    border: 1px solid #800080; /* Purple border around code block */
+}
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Outline style for about content */
+.outline {
+    border: 1px solid #800080; /* Purple border */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(128, 0, 128, 0.3); /* Purple glow */
+    background-color: #111; /* Dark background for contrast */
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.pagination button {
+    background-color: #800080; /* Purple buttons */
+    border: none;
+    color: white; /* White text on the buttons */
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Courier New', Courier, monospace;
+}
+.pagination button:hover {
+    background-color: #660066; /* Darker purple on hover */
+}
+.pagination button:disabled {
+    background-color: #444; /* Disabled buttons have a dark grey background */
+    cursor: not-allowed;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #800080; /* Purple text for footer */
+    font-size: 0.9rem;
+}
