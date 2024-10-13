@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Post - SarahRose's Markdown Blog</title>
+    <link rel="stylesheet" href="assets/styles/purple.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/monokai.min.css">
+</head>
+<body>
+    <!-- Load Header -->
+    <div id="header-container"></div> <!-- Header container -->
+
+    <!-- Navigation Bar -->
+    <div id="navigation-container"></div> <!-- Navigation container -->
+
+    <!-- Main layout: sidebar + post -->
+    <div id="main-content">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+
+        <!-- Single Post Container -->
+        <div id="post-container" style="margin: 20px; padding: 15px; background-color: white; border: 1px solid #ccc; border-radius: 5px; width: calc(100% - 40px);">
+            <div id="post"></div>
+        </div>
+    </div>
+
+    <div id="footer-container"></div> <!-- Footer container -->
+
+    <!-- Include showdown.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <!-- Include highlight.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+
+    <script>
+        // Load Header
+        const loadHeader = async () => {
+            const response = await fetch('header.html');
+            const headerHTML = await response.text();
+            document.getElementById('header-container').innerHTML = headerHTML;
+        };
+
+        // Load Sidebar
+        const loadSidebar = async () => {
+            const response = await fetch('sidebar.html');
+            const sidebarHTML = await response.text();
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+        };
+
+        // Load Navigation
+        const loadNavigation = async () => {
+            const response = await fetch('navigation.html');
+            const navHTML = await response.text();
+            document.getElementById('navigation-container').innerHTML = navHTML;
+        };
+
+        // Load Footer
+        const loadFooter = async () => {
+            const response = await fetch('footer.html');
+            const footerHTML = await response.text();
+            document.getElementById('footer-container').innerHTML = footerHTML;
+        };
+
+        // Function to load a single post
+        const loadPost = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postName = urlParams.get('postname'); // Get the post name from the query string
+            const postsPath = 'assets/posts/'; // Path to the posts
+            const converter = new showdown.Converter({ ghCodeBlocks: true });
+
+            if (postName) {
+                try {
+                    const response = await fetch(`${postsPath}${postName}`);
+                    if (!response.ok) throw new Error(`Failed to fetch post: ${response.statusText}`);
+
+                    const markdownContent = await response.text();
+                    const htmlContent = converter.makeHtml(markdownContent);
+                    document.getElementById('post').innerHTML = htmlContent;
+
+                    // Apply syntax highlighting to code blocks
+                    document.querySelectorAll('pre code').forEach((block) => {
+                        hljs.highlightBlock(block);
+                    });
+                } catch (error) {
+                    console.error('Error loading post:', error);
+                    document.getElementById('post').innerHTML = '<p>Sorry, the post could not be loaded.</p>';
+                }
+            } else {
+                console.warn('No post specified in URL.'); // Debugging line
+                document.getElementById('post').innerHTML = '<p>No post specified.</p>';
+            }
+        };
+
+        // Load Header, Navigation, Sidebar, Footer, and Post
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHeader(); // Load header
+            loadNavigation(); // Load navigation
+            loadSidebar(); // Load sidebar
+            loadFooter(); // Load footer
+            loadPost(); // Load the specific post
+        });
+    </script>
+</body>
+</html>

@@ -60,7 +60,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
             postsToDisplay.forEach(post => {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
-                postElement.innerHTML = `<h2>${post.title}</h2>${post.content}`;
+
+                // Create a link for the title that points to the individual post page
+                const postTitle = document.createElement('h2');
+                const postLink = document.createElement('a');
+                postLink.href = `/posts.html?postname=${encodeURIComponent(post.title)}`; // Create the link
+                postLink.innerText = post.title; // Set the link text
+                postTitle.appendChild(postLink); // Append the link to the title
+
+                postElement.appendChild(postTitle);
+                postElement.innerHTML += post.content; // Append the post content
                 postsContainer.appendChild(postElement);
             });
 

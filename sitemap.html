@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap - SarahRose's Markdown Blog</title>
+    <link rel="stylesheet" href="assets/styles/purple.css">
+</head>
+<body>
+    <!-- Load Header -->
+    <div id="header-container"></div> <!-- Header container -->
+
+    <!-- Navigation Bar -->
+    <div id="navigation-container"></div> <!-- Navigation container -->
+
+    <!-- Main content for the sitemap -->
+    <div id="sitemap-container">
+        <h1>Sitemap</h1>
+        <div id="sitemap-posts"></div>
+    </div>
+
+    <div id="footer-container"></div> <!-- Footer container -->
+
+    <!-- Include showdown.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <script>
+        // Load Header
+        const loadHeader = async () => {
+            const response = await fetch('header.html');
+            const headerHTML = await response.text();
+            document.getElementById('header-container').innerHTML = headerHTML;
+        };
+
+        // Load Navigation
+        const loadNavigation = async () => {
+            const response = await fetch('navigation.html');
+            const navHTML = await response.text();
+            document.getElementById('navigation-container').innerHTML = navHTML;
+        };
+
+        // Load Footer
+        const loadFooter = async () => {
+            const response = await fetch('footer.html');
+            const footerHTML = await response.text();
+            document.getElementById('footer-container').innerHTML = footerHTML;
+        };
+
+        // Function to load all posts
+        const loadPosts = async () => {
+            try {
+                const fileListResponse = await fetch('assets/json/file-list.json');
+                if (!fileListResponse.ok) throw new Error(`Failed to fetch file list: ${fileListResponse.statusText}`);
+                const markdownFiles = await fileListResponse.json();
+                const sitemapContainer = document.getElementById('sitemap-posts');
+
+                // Create links for each post
+                markdownFiles.forEach(file => {
+                    const postLink = document.createElement('a');
+                    postLink.href = `/posts.html?postname=${encodeURIComponent(file)}`; // Link to the post
+                    postLink.innerText = file; // Title of the post
+                    postLink.style.display = 'block'; // Make each link a block element
+                    sitemapContainer.appendChild(postLink); // Append the link to the sitemap
+                });
+            } catch (error) {
+                console.error('Error loading posts for sitemap:', error);
+                const sitemapContainer = document.getElementById('sitemap-posts');
+                sitemapContainer.innerHTML = '<p>Sorry, the sitemap could not be loaded.</p>';
+            }
+        };
+
+        // Load Header, Navigation, Footer, and Posts
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHeader(); // Load header
+            loadNavigation(); // Load navigation
+            loadFooter(); // Load footer
+            loadPosts(); // Load all posts for the sitemap
+        });
+    </script>
+</body>
+</html>
