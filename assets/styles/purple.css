@@ -43,6 +43,7 @@ nav a:hover {
     display: flex;
     justify-content: space-between;
     gap: 20px; /* Adds spacing between sidebar and content */
+    align-items: flex-start; /* Align items to the start of the flex container */
 }
 
 /* Sidebar styles */
@@ -53,7 +54,9 @@ nav a:hover {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft shadow */
     border: 1px solid #e0d4f2; /* Soft lavender border */
+    overflow: hidden; /* Prevent overflow of content */
 }
+
 #sidebar-container h3 {
     color: #5d3a8a; /* Deep purple */
     font-size: 1.4rem;
