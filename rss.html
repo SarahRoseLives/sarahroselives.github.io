@@ -4,22 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSS Feed - Sarah Rose's Markdown Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h1>RSS Feed for Sarah Rose's Markdown Blog</h1>
     <pre id="rss-feed-container"></pre> <!-- Container to display RSS feed -->
+    <button id="download-button">Download RSS Feed</button> <!-- Button to download RSS feed -->
 
     <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     <script>
         const POSTS_PATH = 'assets/posts/'; // Path to the posts
-        const postDate = new Date(); // Use current date for demo
+        const POST_LIST_URL = 'assets/json/file-list.json'; // Path to the JSON file containing post names
         let allPosts = [];
 
         const converter = new showdown.Converter({ ghCodeBlocks: true });
 
         const loadPosts = async () => {
             try {
-                const fileListResponse = await fetch('assets/json/file-list.json');
+                const fileListResponse = await fetch(POST_LIST_URL);
                 if (!fileListResponse.ok) throw new Error(`Failed to fetch file list: ${fileListResponse.statusText}`);
                 const markdownFiles = await fileListResponse.json();
 
@@ -75,10 +81,28 @@
         <generator>JavaScript Feed Generator</generator>
         ${rssItems}
     </channel>
-</rss>`;
+</rss>`.trim();
 
             // Output the RSS feed in the <pre> element
-            document.getElementById('rss-feed-container').textContent = rssFeed.trim();
+            document.getElementById('rss-feed-container').textContent = rssFeed;
+
+            // Set up the download button
+            setupDownloadButton(rssFeed);
+        };
+
+        const setupDownloadButton = (rssFeed) => {
+            const downloadButton = document.getElementById('download-button');
+            downloadButton.onclick = () => {
+                const blob = new Blob([rssFeed], { type: 'application/rss+xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'rss.xml'; // Name of the downloaded file
+                document.body.appendChild(a);
+                a.click(); // Programmatically click the link to trigger the download
+                document.body.removeChild(a); // Remove the link after downloading
+                URL.revokeObjectURL(url); // Free up memory
+            };
         };
 
         // Load posts to generate RSS feed
