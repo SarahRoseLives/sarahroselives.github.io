@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSS Feed - Sarah Rose's Markdown Blog</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <script>
+        const POSTS_PATH = 'assets/posts/'; // Path to the posts
+        const postDate = new Date(); // Use current date for demo
+        let allPosts = [];
+
+        const converter = new showdown.Converter({ ghCodeBlocks: true });
+
+        const loadPosts = async () => {
+            try {
+                const fileListResponse = await fetch('assets/json/file-list.json');
+                if (!fileListResponse.ok) throw new Error(`Failed to fetch file list: ${fileListResponse.statusText}`);
+                const markdownFiles = await fileListResponse.json();
+
+                // Prepend the common path to each post file
+                const fetchPromises = markdownFiles.map(file => {
+                    const filePath = POSTS_PATH + file; // Prepend the common path
+                    return fetch(filePath)
+                        .then(response => {
+                            if (!response.ok) {
+                                console.error('Failed to fetch:', filePath, response.status, response.statusText);
+                                return null;
+                            }
+                            return response.text().then(content => {
+                                const title = file.replace('.md', ''); // Remove .md for title
+                                const postLink = `https://sarahroselives.github.io/posts.html?postname=${file}`;
+                                const description = converter.makeHtml(content).replace(/<[^>]*>/g, '').substring(0, 150) + '...'; // Strip HTML tags for description
+
+                                return `
+<item>
+    <title>${title}</title>
+    <link>${postLink}</link>
+    <description><![CDATA[${description}]]></description>
+    <pubDate>${postDate.toUTCString()}</pubDate>
+</item>`;
+                            });
+                        });
+                });
+
+                const postsArray = await Promise.all(fetchPromises);
+                allPosts = postsArray.filter(post => post !== null);
+                allPosts.reverse(); // Reverse posts to show the newest first
+
+                // Generate RSS Feed
+                generateRSSFeed();
+            } catch (error) {
+                console.error('Error loading posts:', error);
+            }
+        };
+
+        const generateRSSFeed = () => {
+            const rssItems = allPosts.join('');
+
+            const rssFeed = `
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Sarah Rose's Markdown Blog</title>
+        <link>https://sarahroselives.github.io/</link>
+        <description>This is the RSS feed for Sarah Rose's Markdown Blog.</description>
+        <language>en-us</language>
+        ${rssItems}
+    </channel>
+</rss>`;
+
+            // Create an XML Blob and download it
+            const blob = new Blob([rssFeed], { type: 'application/rss+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'rss-feed.xml';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        // Load posts to generate RSS feed
+        loadPosts();
+    </script>
+</body>
+</html>
