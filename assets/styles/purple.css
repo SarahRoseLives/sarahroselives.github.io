@@ -42,31 +42,31 @@ nav a:hover {
 #main-content {
     display: flex;
     justify-content: space-between;
+    gap: 20px; /* Adds spacing between sidebar and content */
 }
 
 /* Sidebar styles */
-#sidebar {
+#sidebar-container {
     width: 250px;
     background-color: #ffffff; /* White background */
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    margin-right: 20px;
     border: 1px solid #e0d4f2; /* Soft lavender border */
 }
-#sidebar h3 {
+#sidebar-container h3 {
     color: #5d3a8a; /* Deep purple */
     font-size: 1.4rem;
     margin-bottom: 15px;
 }
-#sidebar a {
+#sidebar-container a {
     color: #8a2be2;
     text-decoration: none;
     display: block;
     margin: 10px 0;
     font-size: 1rem;
 }
-#sidebar a:hover {
+#sidebar-container a:hover {
     color: #6a1ba1;
 }
 
@@ -142,4 +142,68 @@ footer {
     font-size: 0.9rem;
     padding: 20px 0;
     border-top: 2px solid #e0d4f2; /* Subtle lavender border */
+}
+
+/* --------------------- */
+/* Responsive Media Queries */
+/* --------------------- */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    nav a {
+        margin: 10px 0; /* Space out the links vertically */
+    }
+
+    #main-content {
+        flex-direction: column;
+    }
+
+    #sidebar-container {
+        width: 100%; /* Sidebar takes full width on tablets */
+        margin-bottom: 20px; /* Add spacing below the sidebar */
+    }
+
+    .post h2 {
+        font-size: 1.6rem; /* Adjust post titles for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    nav a {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    #main-content {
+        padding: 0;
+    }
+
+    #sidebar-container {
+        width: 100%; /* Sidebar takes full width on mobile */
+    }
+
+    .post {
+        padding: 15px;
+    }
+
+    .post h2 {
+        font-size: 1.4rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        padding: 15px;
+    }
 }

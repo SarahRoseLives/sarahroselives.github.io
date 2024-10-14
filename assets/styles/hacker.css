@@ -40,6 +40,7 @@ nav a:hover {
 #main-content {
     display: flex;
     justify-content: space-between;
+    gap: 20px; /* Adds spacing between sidebar and content */
 }
 
 /* Sidebar styles */
@@ -107,7 +108,6 @@ code {
     background-color: #111; /* Dark background for contrast */
 }
 
-
 /* Pagination */
 .pagination {
     display: flex;
@@ -138,4 +138,68 @@ footer {
     margin-top: 40px;
     color: #00ff00; /* Green text for footer */
     font-size: 0.9rem;
+}
+
+/* --------------------- */
+/* Responsive Media Queries */
+/* --------------------- */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    nav a {
+        margin: 10px 0; /* Space out the links vertically */
+    }
+
+    #main-content {
+        flex-direction: column;
+    }
+
+    #sidebar {
+        width: 100%; /* Sidebar takes full width on tablets */
+        margin-bottom: 20px; /* Add spacing below the sidebar */
+    }
+
+    .post h2 {
+        font-size: 1.6rem; /* Adjust post titles for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    nav a {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+
+    #main-content {
+        padding: 0;
+    }
+
+    #sidebar {
+        width: 100%; /* Sidebar takes full width on mobile */
+    }
+
+    .post {
+        padding: 15px;
+    }
+
+    .post h2 {
+        font-size: 1.4rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        padding: 15px;
+    }
 }
