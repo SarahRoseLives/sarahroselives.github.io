@@ -3,7 +3,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const postName = urlParams.get('postname'); // Get the postname from the query string
     console.log('Post name from URL:', postName); // Debugging line to check the value
     const postsPath = 'assets/posts/'; // Path to the posts
-    const converter = new showdown.Converter({ ghCodeBlocks: true });
+
+    // Initialize showdown converter with line break preservation
+    const converter = new showdown.Converter({
+        ghCodeBlocks: true,          // Enable GitHub-style code blocks
+        simpleLineBreaks: true,      // Preserve line breaks in Markdown
+        requireSpaceBeforeHeadingText: true // Ensure proper spacing before headings
+    });
 
     if (postName) {
         try {
@@ -12,7 +18,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`Failed to fetch post: ${response.statusText}`);
 
             const markdownContent = await response.text();
-            const htmlContent = converter.makeHtml(markdownContent);
+            let htmlContent = converter.makeHtml(markdownContent);
+
+            // Convert double newlines to <br><br> for extra line spacing
+            htmlContent = htmlContent.replace(/\n{2}/g, '<br><br>');
+
             document.getElementById('post').innerHTML = htmlContent;
 
             // Apply syntax highlighting to code blocks
@@ -24,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('post').innerHTML = '<p>Sorry, the post could not be loaded.</p>';
         }
     } else {
-        console.warn('No post specified in URL.'); // Debugging line
+        console.warn('No post specified in URL.');
         document.getElementById('post').innerHTML = '<p>No post specified.</p>';
     }
 });

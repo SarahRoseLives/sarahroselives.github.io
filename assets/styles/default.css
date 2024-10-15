@@ -89,6 +89,18 @@ nav a:hover {
     margin-bottom: 15px;
     color: #333; /* Dark gray for the post title */
 }
+
+/* Paragraphs */
+p {
+    margin-bottom: 1.5em; /* Add space between paragraphs */
+}
+
+/* Handle double line breaks */
+br + br {
+    display: block;
+    margin-top: 1.5em; /* Extra spacing for double line breaks */
+}
+
 pre {
     background-color: #f4f4f9;
     color: #333; /* Dark gray text for code */

@@ -4,12 +4,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: 'Arial', Helvetica, sans-serif;
     background-color: #f9f4fc; /* Light lavender background */
     color: #444; /* Soft gray text */
     margin: 20px;
 }
+
 h1 {
     text-align: center;
     color: #5d3a8a; /* Deep purple for the title */
@@ -27,6 +29,7 @@ nav {
     border-bottom: 2px solid #e0d4f2; /* Soft lavender border */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+
 nav a {
     color: #8a2be2; /* Medium purple for links */
     text-decoration: none;
@@ -34,6 +37,7 @@ nav a {
     font-size: 1.1rem;
     transition: color 0.3s ease;
 }
+
 nav a:hover {
     color: #6a1ba1; /* Darker purple on hover */
 }
@@ -62,6 +66,7 @@ nav a:hover {
     font-size: 1.4rem;
     margin-bottom: 15px;
 }
+
 #sidebar-container a {
     color: #8a2be2;
     text-decoration: none;
@@ -69,6 +74,7 @@ nav a:hover {
     margin: 10px 0;
     font-size: 1rem;
 }
+
 #sidebar-container a:hover {
     color: #6a1ba1;
 }
@@ -86,11 +92,24 @@ nav a:hover {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
+
 .post h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
     color: #5d3a8a; /* Deep purple for the post title */
 }
+
+/* Paragraphs */
+p {
+    margin-bottom: 1.5em; /* Add space between paragraphs */
+}
+
+/* Handle double line breaks */
+br + br {
+    display: block;
+    margin-top: 1.5em; /* Extra spacing for double line breaks */
+}
+
 pre {
     background-color: #f9f4fc;
     color: #444; /* Soft gray text for code */
@@ -99,6 +118,7 @@ pre {
     overflow-x: auto;
     border: 1px solid #e0d4f2; /* Soft lavender border around code block */
 }
+
 code {
     font-family: 'Courier New', Courier, monospace;
 }
@@ -118,6 +138,7 @@ code {
     justify-content: center;
     margin-top: 20px;
 }
+
 .pagination button {
     background-color: #8a2be2; /* Purple buttons */
     border: none;
@@ -129,9 +150,11 @@ code {
     transition: background-color 0.3s ease;
     font-family: 'Arial', Helvetica, sans-serif;
 }
+
 .pagination button:hover {
     background-color: #6a1ba1; /* Darker purple on hover */
 }
+
 .pagination button:disabled {
     background-color: #ddd; /* Disabled buttons have a light gray background */
     cursor: not-allowed;
@@ -160,6 +183,7 @@ footer {
         align-items: center;
         padding: 10px;
     }
+
     nav a {
         margin: 10px 0; /* Space out the links vertically */
     }

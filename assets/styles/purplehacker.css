@@ -87,6 +87,18 @@ nav a:hover {
     margin-bottom: 15px;
     color: #800080; /* Purple for post title */
 }
+
+/* Paragraphs */
+p {
+    margin-bottom: 1.5em; /* Add space between paragraphs */
+}
+
+/* Handle double line breaks */
+br + br {
+    display: block;
+    margin-top: 1.5em; /* Extra spacing for double line breaks */
+}
+
 pre {
     background-color: #000;
     color: #800080; /* Purple text for code */

@@ -4,11 +4,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const POSTS_PER_PAGE = 5;
         let allPosts = [];
         let currentPage = 1;
-        const postsPath = 'assets/posts/'; // The common path to the posts
-        const imagesPath = 'assets/posts/images/'; // The path to the images
+        const postsPath = 'assets/posts/';
+        const imagesPath = 'assets/posts/images/';
 
-        // Enable GitHub-style code blocks
-        const converter = new showdown.Converter({ ghCodeBlocks: true });
+        // Enable GitHub-style code blocks and preserve line breaks
+        const converter = new showdown.Converter({
+            ghCodeBlocks: true,
+            simpleLineBreaks: true, // Enable auto line breaks
+            requireSpaceBeforeHeadingText: true
+        });
 
         const loadPosts = async () => {
             try {
@@ -16,9 +20,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (!fileListResponse.ok) throw new Error(`Failed to fetch file list: ${fileListResponse.statusText}`);
                 const markdownFiles = await fileListResponse.json();
 
-                // Prepend the common path to each post file
                 const fetchPromises = markdownFiles.map(file => {
-                    const filePath = postsPath + file; // Prepend the common path
+                    const filePath = postsPath + file;
                     return fetch(filePath)
                         .then(response => {
                             if (!response.ok) {
@@ -27,9 +30,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             }
                             return response.text().then(content => {
                                 const title = file;
-                                let htmlContent = converter.makeHtml(content);  // Convert markdown to HTML
+                                let htmlContent = converter.makeHtml(content);
 
-                                // Update image paths to be relative to the web server's directory structure
+                                // Convert double newlines to <br><br> for extra line spacing
+                                htmlContent = htmlContent.replace(/\n{2}/g, '<br><br>');
+
+                                // Update image paths
                                 htmlContent = htmlContent.replace(/src="images\//g, `src="${imagesPath}`);
 
                                 return { title, content: htmlContent };
@@ -64,11 +70,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 // Create a link for the title that points to the individual post page
                 const postTitle = document.createElement('h2');
                 const postLink = document.createElement('a');
-                postLink.href = `/posts.html?postname=${encodeURIComponent(post.title)}`; // Create the link
-                postLink.innerText = post.title; // Set the link text
-                postTitle.appendChild(postLink); // Append the link to the title
-
+                postLink.href = `/posts.html?postname=${encodeURIComponent(post.title)}`;
+                postLink.innerText = post.title;
+                postTitle.appendChild(postLink);
                 postElement.appendChild(postTitle);
+
                 postElement.innerHTML += post.content; // Append the post content
                 postsContainer.appendChild(postElement);
             });
